@@ -64,6 +64,7 @@ namespace ADO1.CRUD
         {
 
             this.DialogResult = true;
+            Department = null; // Departmen.Name = null;
             this.Close();
         }
 

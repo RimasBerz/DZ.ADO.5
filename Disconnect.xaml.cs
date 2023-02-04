@@ -107,11 +107,11 @@ namespace ADO1
                     {
                         if(window.Department is null)
                         {
-                            
+                            Departments.Insert(index, department);// Departments.Remove(index, department);
                         }
                         else
                         {
-                            Departments.Insert(index, department);
+                            Departments.Insert(index, department);// Department.Update(index, department);
                         }
                     }
                     else
@@ -188,6 +188,34 @@ namespace ADO1
                 catch (SqlException ex)
                 {
                     MessageBox.Show("Удаление не выполнено\n" + ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Cancel");
+            }
+        }
+        private void ApdateDepartment_Click(Object sender, RoutedEventArgs e)
+        {
+            var window = new CRUD.Departments();
+            if (window.ShowDialog().GetValueOrDefault())
+            {
+                using SqlConnection connection = new(App.ConnectinString);
+                try
+                {
+                    connection.Open();
+                    string command_model_kar = "UPDATE Department\r\n  SET Name = @name\r\n  WHERE Id = @id\r\nEND";
+                    SqlCommand command_model_kar_add = new SqlCommand(command_model_kar, connection);
+                    command_model_kar_add.ExecuteNonQuery();
+                    MessageBox.Show("Обновление выполнено");
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Обновление не выполнено\n" + ex.Message);
                 }
                 finally
                 {
